@@ -118,7 +118,21 @@ figure {
 }
 
 p {
-	margin: 1em;
+	margin: 1.2em;
 	line-height: 1.4em;
 	letter-spacing: 1px;
+}
+
+.news {
+  padding: 0 30px;
+}
+.news-thumbnail {
+  width: auto;
+  height: 120px;
+	float: left;
+  padding: 0px 10px 10px 0px;
+}
+
+.news h2 {
+	margin: 1em 0.7em;
 }
