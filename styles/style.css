@@ -1,0 +1,132 @@
+html,
+body {
+  width:100%;
+  height:100%;
+  margin:0px;
+}
+header {
+  display: block;
+  width: 100%;
+  height: fit-content;
+}
+body {
+  display: flex;
+  flex-direction: column;
+}
+main { 
+  float: left;
+  height: 100%;
+  width: 100%;
+  background-color: lightgray;
+}
+.banner {
+  display: flex;
+  width: 100%;
+}
+
+h1 {
+  padding: 10px 50px;
+}
+
+@media only screen and (max-width: 600px) {
+  nav {
+    height: 100%;
+    width: 120px !important;
+  }
+  .nav-list {
+    display: inline-block !important;
+  }
+  main {
+    width: calc(100% - 120px);
+  }
+  .footer-github-link {
+    padding-left: 0 !important;
+  }
+}
+
+nav {
+  float: left;
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  background-color: rgb(68, 68, 68); 
+}
+.nav-list {
+  list-style: none;
+  display: flex;
+  padding-left: 10px;
+}
+.nav-item a {
+  display: inline-block;
+  margin: 10px;
+  text-decoration: none;
+  color: lightgray;
+}
+.nav-item:hover a{
+  color: white;
+}
+img.scale {
+  /* corrects small inline gap at bottom of containing div */
+	display: block; 
+  width: 100%; /* corrects obscure Firefox bug */
+	max-width: 100%;
+	/* just in case, to force correct aspect ratio */
+	height: auto !important;
+  display: block; /* corrects small inline gap at bottom of containing div */
+  width: 100%; /* corrects obscure Firefox bug */
+  max-width: 100%;
+  /* just in case, to force correct aspect ratio */
+  height: auto !important;
+  /*width: auto\9; 
+  /* ie8+9 - use modernizr instead of this \9 hack */
+  /* lt ie8 */
+  -ms-interpolation-mode: bicubic;
+	/* optionally force a minimum size if img src size is known: */
+	/* min-height: 320px; /* max-height of .crop-height */
+	/* min-width: 480px; /* proportional to above */ 
+}
+.crop-height {
+  /* max-width: 1200px; /* native or declared width of img src (if known) */
+  max-height: 320px;
+  overflow: hidden; 
+}
+.container {
+  width: 90%;
+  margin: 0 auto;
+  display: inline;
+}
+
+
+.footer {
+  bottom: 0;
+  font-size: 28px;
+  background-color: rgb(32, 32, 32);
+  color: white;
+  font-weight: bold;
+  float: left;
+  width: 100%;
+  text-align: center;
+  padding: 10px 0px;
+}
+.footer-github-link {
+  float: left;
+  padding-left: 100px;
+}
+
+figure {
+	padding: 0.5em;
+	margin: 0 1em 0.5em 1em;
+	float: left;
+	max-width: 35%;
+  min-width: 200px;
+}
+
+#logo {
+  width: 100%;
+}
+
+p {
+	margin: 1em;
+	line-height: 1.4em;
+	letter-spacing: 1px;
+}
