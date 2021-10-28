@@ -136,3 +136,32 @@ p {
 .news h2 {
 	margin: 1em 0.7em;
 }
+
+.figure img
+{
+  max-width: 300px;
+  height: auto;
+}
+
+.form
+{
+  margin: 1em;
+  position: relative;
+}
+
+.google-map iframe{
+  max-width: 500px;
+}
+
+.galery-figure {
+  max-width: 300px;
+  border: 1px solid black;
+  padding: 10px;
+  height: 280px;
+}
+
+.galery-figure img
+{
+  max-width: 300px;
+  height: auto;
+}
