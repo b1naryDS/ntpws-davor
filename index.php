@@ -1,4 +1,8 @@
 <?php
+ session_start();
+ include("database.php");
+ $connection = connect();
+
 ?>
 <!DOCTYPE HTML>
 <html>
