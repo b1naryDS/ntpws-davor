@@ -1,7 +1,15 @@
 <?php
- session_start();
- include("database.php");
- $connection = connect();
+session_start();
+include("database.php");
+$connection = connect();
+if(isset($_GET['action'])) { $action   = (int)$_GET['action']; }
+if(!isset($_POST['action']))  { $_POST['action'] = FALSE;  }
+
+
+if ($connection->connect_error) {
+  die("Connection failed: " . $connection->connect_error);
+}
+echo "Connected successfully";
 
 ?>
 <!DOCTYPE HTML>

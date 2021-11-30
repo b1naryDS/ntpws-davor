@@ -22,63 +22,75 @@ function popuni()
 
 function register($connection)
 {
-	if (isset($_POST['name'], $_POST['lastname'], $_POST['email'], $_POST['password'], $_POST['passwordRepeat'], $_POST['country'], $_POST['city'], $_POST['street'], $_POST['birth']))
+	if (isset($_POST['name'], $_POST['username'], $_POST['lastname'], $_POST['email'], $_POST['password'], $_POST['passwordRepeat'], $_POST['country'], $_POST['city'], $_POST['address'], $_POST['dateofbirth']))
 	{
-		if ($_POST['sifraA'] == $_POST['sifraB'])
+		if ($_POST['password'] == $_POST['passwordRepeat'])
 		{
-			$ime = htmlspecialchars($_POST['name']);
-			$prezime = htmlspecialchars($_POST['lastname']);
-			$email = htmlspecialchars($_POST['email']);
-			$sifra = password_hash(htmlspecialchars($_POST['password']), CRYPT_BLOWFISH);
-			$zemlja = htmlspecialchars($_POST['country']);
-			$grad = htmlspecialchars($_POST['city']);
-			$ulica = htmlspecialchars($_POST['street']);
-			$rodjenje = htmlspecialchars($_POST['birth']);
+		    $db = new mysqli("localhost","root","","ntpws");
+            $query1  = "SELECT * FROM users";
+            $query1 .= " WHERE email='" .  $_POST['email'] . "'";
+            $query1 .= " OR username='" .  $_POST['username'] . "'";
+            $result = @mysqli_query($db, $query1);
+            $row = @mysqli_fetch_array($result, MYSQLI_ASSOC);
 
+            if (!is_array($row)) {
+                $mysqli = new mysqli("localhost","root","","ntpws");
 
-			$query = "INSERT INTO users (name, lastname, email, password, country, city, street, dateofbirth)
-			VALUES(?, ?, ?, ?, ?, ?, ?, ?);";
+                $ime = htmlspecialchars($_POST['name']);
+                $username = htmlspecialchars($_POST['username']);
+                $prezime = htmlspecialchars($_POST['lastname']);
+                $email = htmlspecialchars($_POST['email']);
+                $sifra = password_hash(htmlspecialchars($_POST['password']), CRYPT_BLOWFISH);
+                $zemlja = htmlspecialchars($_POST['country']);
+                $grad = htmlspecialchars($_POST['city']);
+                $ulica = htmlspecialchars($_POST['address']);
+                $rodjenje = htmlspecialchars($_POST['dateofbirth']);
 
-			$statement = mysqli_stmt_init($connection);
+                $pass_hash = password_hash($_POST['password'], PASSWORD_DEFAULT, ['cost' => 12]);
 
-			mysqli_stmt_prepare($statement, $query);
-			mysqli_stmt_bind_param($statement, "sssssssi", $ime, $prezime, $email, $sifra, $zemlja, $grad, $ulica, $rodjenje);
-			mysqli_stmt_execute($statement);
+                $query = "INSERT INTO users (name, username, lastname, email, password, country, city, address, dateofbirth, role)";
+                $query .= " VALUES ('" . $_POST['name'] . "',  '" . $_POST['username'] . "', '" . $_POST['lastname'] . "', '" . $_POST['email'] . "', '" . $pass_hash . "', '" . $_POST['country'] . "', '" . $_POST['city'] . "', '" . $_POST['address'] . "', '" . $_POST['dateofbirth'] . "', '" . 'user' . "')";
+                if ($connection->query($query) === TRUE) {
+                  echo "New record created successfully";
+                } else {
+                  echo "Error: " . $query . "<br>" . $connection->error;
+                }
 
-			echo("<br/>You are registered!<br/>");
+                echo("<br/>You are registered!<br/>");
+            }
 
 		}
 		else
 			echo("<br/><b>Passwords do not match</b><br/>");
 	}
+	else
+	    echo("ne radi");
 }
 
-function prijava($connection)
+function login($connection)
 {
 	if (isset($_POST['email'], $_POST['password']))
 	{
+		$query  = "SELECT * FROM users";
+		$query .= " WHERE username='" .  $_POST['username'] . "'";
+		$result = @mysqli_query($db, $query);
+		$row = @mysqli_fetch_array($result, MYSQLI_ASSOC);
 
-		$email = htmlspecialchars($_POST['email']);
-		$sifra = htmlspecialchars($_POST['password']);
+		if (password_verify($_POST['password'], $row['password'])) {
+			 $_SESSION['user']['valid'] = 'true';
+			 $_SESSION['user']['id'] = $row['id'];
+			 $_SESSION['user']['name'] = $row['name'];
+			 $_SESSION['user']['lastname'] = $row['lastname'];
+             $_SESSION['user']['role'] = $row['role'];
+			 $_SESSION['message'] = '<p>Welcome, ' . $_SESSION['user']['name'] . ' ' . $_SESSION['user']['lastname'] . '</p>';
+			 header("Location: index.php?izbor=1");
+		}
 
-		$query = 'SELECT users.email, users.password FROM users WHERE email = ? LIMIT 1;';
-
-		$statement = mysqli_stmt_init($connection);
-
-		mysqli_stmt_prepare($statement, $query);
-		mysqli_stmt_bind_param($statement, "s", $email);
-		mysqli_stmt_bind_result($statement, $dbEmail, $dbPassword);
-		mysqli_stmt_execute($statement);
-		mysqli_stmt_fetch($statement);
-		//echo(mysqli_error($connection));
-
-		if (isset($dbEmail, $dbPassword))
-		{
-			if (password_verify($sifra, $dbPassword))
-			{
-				$_SESSION["login"] = 1;
-				header("Refresh:0");
-			}
+		# Bad username or password
+		else {
+			unset($_SESSION['user']);
+			$_SESSION['message'] = '<p>You entered wrong email or password!</p>';
+			header("Location: index.php?menu=6");
 		}
 	}
 }
