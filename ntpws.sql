@@ -310,12 +310,8 @@ INSERT INTO `users` (`name`, `lastname`, `username`, `email`, `password`, `addre
 --
 -- Dumping data for table `news`
 --
-
-INSERT INTO `news` (`id`, `title`, `description`, `date`, `approved`) VALUES
-(1, 'First news story!', '\"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum\"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum\"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum', '2021-11-04 10:24:00', 1),
-(2, 'Seconds news story!', '\"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum', '2021-11-04 10:24:00', 1),
-(5, 'Third news title!', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', '2021-11-04 10:35:00', 1);
-
+INSERT INTO `news` (`id`, `title`, `description`, `date`, `approved`)
+VALUES (1, 'Pigs cover Hot Stuff!', 'Pigs Pigs Pigs Pigs Pigs Pigs Pigs have covered ‘Hot Stuff by Donna Summer. ', '2021-11-04 10:24:00', 1), (2, 'Coachella appears to confirm Swedish House Mafia for 2022 festival!', 'Rage Against The Machine and Travis Scott have already been announced to headline.', '2021-11-04 10:24:00', 1), (3, 'Silverchair’s Daniel Johns says the band will never return!', 'Former Silverchair frontman Daniel Johns has confirmed that there’s no possibility of the band ever reforming.', '2021-11-04 10:35:00', 1);
 -- --------------------------------------------------------
 
 --
@@ -333,13 +329,8 @@ CREATE TABLE `pictures` (
 -- Dumping data for table `pictures`
 --
 
-INSERT INTO `pictures` (`id`, `description`, `img`, `newsId`) VALUES
-(4, 'testing!', '1-69.jpg', 1),
-(5, 'animals', '2-30.jpg', 2),
-(6, 'animals', '2-20.jpg', 2),
-(7, 'animals', '2-4.jpg', 2),
-(11, 'test', '5-60.jpg', 5),
-(12, 'test', '5-84.jpg', 5);
+INSERT INTO `pictures` (`id`, `description`, `img`, `newsId`) VALUES (1, 'first', 'news1.jpg', 1), (2, 'sec', 'news2.jpg', 2), (3, 'third', 'news3.jpg', 3);
+
 
 -- --------------------------------------------------------
 

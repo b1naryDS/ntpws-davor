@@ -164,3 +164,18 @@ p {
   max-width: 300px;
   height: auto;
 }
+.newss {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: start;
+}
+.newss img {
+  max-width: 200px;
+  transition: transform 0.25s ease;
+}
+.singlenews {
+  padding: 0.5em;
+  flex: 0 1 calc(15% - 1em);
+  border: 0.5px solid lightgrey;
+}
+

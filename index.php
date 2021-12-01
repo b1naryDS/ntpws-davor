@@ -2,6 +2,8 @@
 session_start();
 include("database.php");
 $connection = connect();
+if(isset($_GET['izbor'])) { $izbor   = (int)$_GET['izbor']; }
+if(!isset($izbor)) {$izbor = 1;}
 if(isset($_GET['action'])) { $action   = (int)$_GET['action']; }
 if(!isset($_POST['action']))  { $_POST['action'] = FALSE;  }
 
@@ -9,7 +11,6 @@ if(!isset($_POST['action']))  { $_POST['action'] = FALSE;  }
 if ($connection->connect_error) {
   die("Connection failed: " . $connection->connect_error);
 }
-echo "Connected successfully";
 
 ?>
 <!DOCTYPE HTML>
@@ -39,24 +40,37 @@ echo "Connected successfully";
                 <li class="nav-item"><a href="index.php?izbor=2">Contact</a></li>
                 <li class="nav-item"><a href="index.php?izbor=3">About</a></li>
                 <li class="nav-item"><a href="index.php?izbor=4">Gallery</a></li>
+                <li class="nav-item"><a href="index.php?izbor=9">API-task5</a></li>
 
                 <?php
-//                 if (isset($_SESSION["login"]) and $_SESSION["login"] == 1)
-//                 {
-//                     echo("<a href=\"index.php?izbor=7\">Odjava </a>");
-//                 }
-//                 else
-                    echo("<li class='nav-item'><a href=\"index.php?izbor=5\">Login </a></li><li class='nav-item'><a href=\"index.php?izbor=6\">Register </a></li>");
-                ?>
+                    if (!isset($_SESSION['user']['valid']) || $_SESSION['user']['valid'] == 'false') {
+                                print '
+                                <li class="nav-item"><a href="index.php?izbor=5">Login</a></li>
+                                <li class="nav-item"><a href="index.php?izbor=6">Register</a></li>
+                                ';
+                              }
+                              else if ($_SESSION['user']['valid'] == 'true' && $_SESSION['user']['role'] === 'administrator') {
+                                print '
+                                <li class="nav-item"><a href="index.php?izbor=7">Admin</a></li>
+                                <li class="nav-item"><a href="signout.php">Sign Out</a></li>';
+                              } else if ($_SESSION['user']['role'] !== 'administrator') {
+                                print '<li class="nav-item"><a href="signout.php">Sign Out</a></li>'
+                               ;
+
+                              }
+//                  ?>
             </ul>
         </nav>
         <?php
+                if (isset($_GET['news-story'])) {
+                    include("news-story.php");
+               }
         		if (isset($_GET['izbor']))
-        			$switcheroo = $_GET['izbor'];
+        			$izbor = $_GET['izbor'];
         		else
-        			$switcheroo = 0;
+        			$izbor = 0;
 
-        			switch($switcheroo)
+        			switch($izbor)
         			{
         				case 1:
         					include("news.php");
@@ -77,11 +91,17 @@ echo "Connected successfully";
         					include("reg.php");
         					break;
         				case 7:
+        					include("admin.php");
+        					break;
+        				case 8:
         					{
                                 session_unset();
                                 session_destroy();
                                 header("Refresh:0, url=index.php?izbor=0");
         					}
+        					break;
+        				case 9:
+        					include("zadatak5.php");
         					break;
         				default:
         					include("main.php");

@@ -89,7 +89,7 @@ function login($connection)
 			 $_SESSION['user']['lastname'] = $row['lastname'];
              $_SESSION['user']['role'] = $row['role'];
 			 $_SESSION['message'] = '<p>Welcome, ' . $_SESSION['user']['name'] . ' ' . $_SESSION['user']['lastname'] . '</p>';
-// 			 header("Location: index.php?izbor=1");
+			 header("Location: index.php?izbor=1");
 		}
 
 		# Bad username or password

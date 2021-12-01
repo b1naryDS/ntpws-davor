@@ -1,30 +1,33 @@
-<main>
-    <div class="news">
-    <h1>News</h1>
-        <a href="news-1.html">
-            <img class="news-thumbnail" src="assets/news1.jpg" alt="Pigs cover Hot Stuff" title="Pigs cover Hot Stuff">
-        </a>
-        <h2>Pigs Pigs Pigs Pigs Pigs Pigs Pigs cover ‘Hot Stuff’ by Donna Summer</h2>
-        <p>Pigs Pigs Pigs Pigs Pigs Pigs Pigs have covered ‘Hot Stuff by Donna Summer. <a href="news-1.html">More ...</a></p>
-        <p><em>20th October 2021</em></p>
-        <hr>
 
-        <a href="news-2.html">
-            <img class="news-thumbnail" src="assets/news2.jpg" alt="Coachella appears to confirm Swedish House Mafia for 2022 festival" title="Coachella appears to confirm Swedish House Mafia for 2022 festival">
-        </a>
-        <h2>Coachella appears to confirm Swedish House Mafia for 2022 festival</h2>
-        <p>Rage Against The Machine and Travis Scott have already been announced to headline. <a href="news-2.html">More ...</a></p>
-        <p><em>20th October 2021</em></p>
-        <hr>
+<?php
+print '
+    <main>
+        <div class="news">
+          <h1>News!</h1>
+          <div class="container">
+          ';
+          $db = new mysqli("localhost","root","","ntpws");
 
+          $query  = "SELECT * FROM news WHERE approved='1'";
+          $result = @mysqli_query($db, $query);
 
-        <a href="news-3.html">
-            <img class="news-thumbnail" src="assets/news3.jpg" alt="Silverchair’s Daniel Johns says the band will never return" title="Silverchair’s Daniel Johns says the band will never return">
-        </a>
-        <h2>Silverchair’s Daniel Johns says the band will never return</h2>
-        <p>Former Silverchair frontman Daniel Johns has confirmed that there’s no possibility of the band ever reforming. <a href="news-3.html">More ...</a></p>
-        <p><em>20th October 2021</em></p>
-        <hr>
-
-    </div>
-</main>
+          while($row = @mysqli_fetch_array($result)) {
+            $queryImage = "SELECT * FROM pictures WHERE newsId='".$row['id']."' LIMIT 1";
+            $resultImage = @mysqli_query($db, $queryImage);
+            $rowImage = @mysqli_fetch_array($resultImage);
+            print '
+            <div class="news-item"><br/>
+            <a href="index.php?news-story='. $row['id'] .'"><br/>
+                <img src="assets/'.$rowImage['img'].'" title=".."><br/>
+                </a>
+                <div class="titleAndContent">
+                    <h2>'. $row['title'] . '</h2><br/>
+                    <p> '. $row['description'] . '</p><br/>
+                </div>
+            </div>';}
+            print '
+           </div>
+           </div>
+        </main>
+    ';
+?>
