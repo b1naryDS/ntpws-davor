@@ -6,9 +6,9 @@ print '
     '; if ($_POST['action'] == FALSE) {
         print '
         <h1> Current weather </h1>
-        <form action="" method="POST">
+        <form style="padding: 30px" action="" method="POST">
             <input type="hidden" id="action" name="action" value="TRUE">
-            <label for="city">Enter a city:</label><br />
+            <label for="city">City:</label><br />
             <input type="text" id="city" name="city"><br /><br />
             <input type="submit">
         </form>
