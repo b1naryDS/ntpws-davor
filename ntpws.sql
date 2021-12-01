@@ -17,15 +17,6 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
 
---
--- Database: `ntpws`
---
-
--- --------------------------------------------------------
-
---
--- Table structure for table `countries`
---
 
 CREATE TABLE `countries` (
   `id` int(11) NOT NULL,
@@ -284,12 +275,6 @@ INSERT INTO `countries` (`id`, `country_code`, `country_name`) VALUES
 (244, 'ZM', 'Zambia'),
 (245, 'ZW', 'Zimbabwe');
 
--- --------------------------------------------------------
-
---
--- Table structure for table `news`
---
-
 CREATE TABLE `news` (
   `id` int(11) NOT NULL,
   `title` varchar(255) NOT NULL,
@@ -325,18 +310,10 @@ CREATE TABLE `pictures` (
   `newsId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `pictures`
---
 
 INSERT INTO `pictures` (`id`, `description`, `img`, `newsId`) VALUES (1, 'first', 'news1.jpg', 1), (2, 'sec', 'news2.jpg', 2), (3, 'third', 'news3.jpg', 3);
 
 
--- --------------------------------------------------------
-
---
--- Table structure for table `users`
---
 
 CREATE TABLE `users` (
   `firstName` varchar(255) NOT NULL,
@@ -352,65 +329,31 @@ CREATE TABLE `users` (
   `role` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Indexes for table `countries`
---
 ALTER TABLE `countries`
   ADD PRIMARY KEY (`id`);
 
---
--- Indexes for table `news`
---
 ALTER TABLE `news`
   ADD PRIMARY KEY (`id`);
 
---
--- Indexes for table `pictures`
---
 ALTER TABLE `pictures`
   ADD PRIMARY KEY (`id`),
   ADD KEY `fk_newsId` (`newsId`);
 
---
--- Indexes for table `users`
---
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
 
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `countries`
---
 ALTER TABLE `countries`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=246;
 
---
--- AUTO_INCREMENT for table `news`
---
 ALTER TABLE `news`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
---
--- AUTO_INCREMENT for table `pictures`
---
 ALTER TABLE `pictures`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
---
--- AUTO_INCREMENT for table `users`
---
 ALTER TABLE `users`
   MODIFY `id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `pictures`
---
 ALTER TABLE `pictures`
   ADD CONSTRAINT `fk_newsId` FOREIGN KEY (`newsId`) REFERENCES `news` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 COMMIT;
