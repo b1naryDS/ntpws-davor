@@ -46,7 +46,7 @@ function register($connection)
                 $ulica = htmlspecialchars($_POST['address']);
                 $rodjenje = htmlspecialchars($_POST['dateofbirth']);
 
-                $pass_hash = password_hash($_POST['password'], PASSWORD_DEFAULT, ['cost' => 12]);
+                $pass_hash = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
                 $query = "INSERT INTO users (name, username, lastname, email, password, country, city, address, dateofbirth, role)";
                 $query .= " VALUES ('" . $_POST['name'] . "',  '" . $_POST['username'] . "', '" . $_POST['lastname'] . "', '" . $_POST['email'] . "', '" . $pass_hash . "', '" . $_POST['country'] . "', '" . $_POST['city'] . "', '" . $_POST['address'] . "', '" . $_POST['dateofbirth'] . "', '" . 'user' . "')";
@@ -69,28 +69,34 @@ function register($connection)
 
 function login($connection)
 {
-	if (isset($_POST['email'], $_POST['password']))
+	if (isset($_POST['username'], $_POST['password']))
 	{
+	    echo("<br/> bla <br/>");
+	    $db = new mysqli("localhost","root","","ntpws");
+
 		$query  = "SELECT * FROM users";
 		$query .= " WHERE username='" .  $_POST['username'] . "'";
 		$result = @mysqli_query($db, $query);
 		$row = @mysqli_fetch_array($result, MYSQLI_ASSOC);
 
 		if (password_verify($_POST['password'], $row['password'])) {
+		     echo("<br/>Successful login - Session active");
+		     $_SESSION["favcolor"] = "green";
+
 			 $_SESSION['user']['valid'] = 'true';
 			 $_SESSION['user']['id'] = $row['id'];
 			 $_SESSION['user']['name'] = $row['name'];
 			 $_SESSION['user']['lastname'] = $row['lastname'];
              $_SESSION['user']['role'] = $row['role'];
 			 $_SESSION['message'] = '<p>Welcome, ' . $_SESSION['user']['name'] . ' ' . $_SESSION['user']['lastname'] . '</p>';
-			 header("Location: index.php?izbor=1");
+// 			 header("Location: index.php?izbor=1");
 		}
 
 		# Bad username or password
 		else {
 			unset($_SESSION['user']);
 			$_SESSION['message'] = '<p>You entered wrong email or password!</p>';
-			header("Location: index.php?menu=6");
+// 			header("Location: index.php?izbor=5");
 		}
 	}
 }

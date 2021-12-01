@@ -298,6 +298,15 @@ CREATE TABLE `news` (
   `approved` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+
+-- admin
+
+
+INSERT INTO `users` (`name`, `lastname`, `username`, `email`, `password`, `address`, `city`, `country`, `dateOfBirth`, `id`, `role`) VALUES
+('Davor', 'Sehic', 'admin', 'davor.sehic@gmail.com', '$2y$12$1FSE89.LqxKfsbHsu/nPO.cOOYjwliWZXTkyTr7CADJMFSWX4WOci', 'abc', 'zg', 'HR', '2021-11-15', 2, 'administrator');
+
+
+
 --
 -- Dumping data for table `news`
 --
